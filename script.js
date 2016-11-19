@@ -1,62 +1,16 @@
-<<<<<<< HEAD
 function createCloud() 
 {
 	counts = [5, 4, 2];
 	names = ['a','b','c'];
-	var MAX_FONT_SIZE = 72;
-=======
-function createCloud() {
-	var counts = [5, 12, 2];
-	var names = ['a','b','c'];
->>>>>>> origin/master
+	var max = Math.max.apply(null, counts);
 
-	canvas = document.getElementById('cloudCanvas');
-	ctx = canvas.getContext('2d');
-
-	drawCloud(names, counts);
-}
-
-function drawCloud(names, counts) {
-	max = Math.max.apply(null,counts);
-	for(var i = 0; i < names.length; i++) {
-<<<<<<< HEAD
-		ctx.fontColor
-		ctx.font = 'italic ' + (counts[i] / max) * MAX_FONT_SIZE +'pt Calibri';
-		ctx.fillText(names[i], 10, (i+1)*100);
-		console.log('here' + i);
+	for(var i = 0; i < counts.length; i++) {
+		addWord(names[i], counts[i], max, i);
 	}
+	
 }
 
-function rotateElement(result)
-{
-	canvas = document.getElementById('cloudCanvas');
-	context = canvas.getContext('2d');
-	var rotated_word = result;
-	
-	context.save();
-	var size = context.measureText(rotated_word);
-	var change_x = 50;
-	var change_y = 50;
-	context.font = 'italic ' + 14 + ' pt Calibri';
-	context.translate(400, 300);
-	
-	var random = Math.floor(Math.random() * 2);
-	
-	if(random == 1)
-	{
-		context.rotate(-Math.PI/2);
-	}
-	else
-		context.rotate(Math.PI/2);
-	
-	context.fillText(rotated_word, 0, 0);
-	context.restore();
-	console.log('did the rotation ' + j);
-	
-=======
-		addWord(names[i],counts[i],max, i);
-	}	
-}
+
 
 function addWord(word, count, max, position) {
 	var MAX_FONT_SIZE = 72;
@@ -76,9 +30,18 @@ function addWord(word, count, max, position) {
 	var y = getYPosition(position);
 
 	//Select the rotation of the word
-
-	//Put the word on the canvas
+	
+	ctx.save();
+	var size = ctx.measureText(word);
+	var change_x = 50;
+	var change_y = 50;
+	ctx.font = 'italic ' + 14 + ' pt Calibri';
+	ctx.translate(400, 300);
+	
+	var random = Math.floor(Math.random() * 3) - 1;
+	ctx.rotate(random * Math.PI/2)	
 	ctx.fillText(word, x, y);
+	ctx.restore();
 }
 
 function getHexColor() {
@@ -94,5 +57,4 @@ function getYPosition(position) {
 
 function getXPosition(position) {
 	return 10;
->>>>>>> origin/master
 }
