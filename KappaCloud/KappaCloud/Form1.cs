@@ -62,10 +62,6 @@ namespace KappaCloud
                     string trimMessage = message.Substring(msgCollon + 1);
                     chatBoxTrim.Text += $"{trimMessage}\r\n";
                 }
-                else
-                {
-                    chatBoxTrim.Text += "\r\n";
-                }
             }
         }
 
