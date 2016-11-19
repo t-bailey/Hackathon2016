@@ -1,0 +1,9 @@
+C:\Users\Andreya\Documents\Visual Studio 2015\Projects\KappaCloud\KappaCloud\bin\Debug\KappaCloud.exe.config
+C:\Users\Andreya\Documents\Visual Studio 2015\Projects\KappaCloud\KappaCloud\bin\Debug\KappaCloud.exe
+C:\Users\Andreya\Documents\Visual Studio 2015\Projects\KappaCloud\KappaCloud\bin\Debug\KappaCloud.pdb
+C:\Users\Andreya\Documents\Visual Studio 2015\Projects\KappaCloud\KappaCloud\obj\Debug\KappaCloud.csprojResolveAssemblyReference.cache
+C:\Users\Andreya\Documents\Visual Studio 2015\Projects\KappaCloud\KappaCloud\obj\Debug\KappaCloud.Form1.resources
+C:\Users\Andreya\Documents\Visual Studio 2015\Projects\KappaCloud\KappaCloud\obj\Debug\KappaCloud.Properties.Resources.resources
+C:\Users\Andreya\Documents\Visual Studio 2015\Projects\KappaCloud\KappaCloud\obj\Debug\KappaCloud.csproj.GenerateResource.Cache
+C:\Users\Andreya\Documents\Visual Studio 2015\Projects\KappaCloud\KappaCloud\obj\Debug\KappaCloud.exe
+C:\Users\Andreya\Documents\Visual Studio 2015\Projects\KappaCloud\KappaCloud\obj\Debug\KappaCloud.pdb
