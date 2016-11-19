@@ -10,7 +10,7 @@
     <head>
         <title>HackOHI/O 2016</title>
         
-        <script type="text/javascript" src="'jquery-3.1.1.min.js'"></script> <!-- jQuery -->
+        <script type="text/javascript" src='jquery-3.1.1.min.js'></script> <!-- jQuery -->
         <script type="text/javascript" src='script.js'></script>
         <script type="text/javascript" src='twitch.js'></script>
     </head>
