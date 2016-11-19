@@ -59,16 +59,20 @@ namespace KappaCloud
                 int msgCollon = message.IndexOf(':', 1);
                 if (msgCollon > 0 && message.Contains(chatCommand))
                 {
-                    message = message.Substring(msgCollon + 1);
-                    chatBox.Text += $"{message}\r\n";
+                    string trimMessage = message.Substring(msgCollon + 1);
+                    chatBoxTrim.Text += $"{trimMessage}\r\n";
+                }
+                else
+                {
+                    chatBoxTrim.Text += "\r\n";
                 }
             }
         }
 
-        private void chatBox_TextChanged(object sender, EventArgs e)
+        private void chatBoxTrim_TextChanged(object sender, EventArgs e)
         {
-            chatBox.SelectionStart = chatBox.Text.Length;
-            chatBox.ScrollToCaret();
+            chatBoxTrim.SelectionStart = chatBoxTrim.Text.Length;
+            chatBoxTrim.ScrollToCaret();
         }
     }
 }

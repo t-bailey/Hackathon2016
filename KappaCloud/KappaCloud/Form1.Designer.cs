@@ -34,7 +34,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.chatTimer = new System.Windows.Forms.Timer(this.components);
-            this.chatBox = new System.Windows.Forms.RichTextBox();
+            this.chatBoxTrim = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,7 +65,7 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.chatBox);
+            this.panel1.Controls.Add(this.chatBoxTrim);
             this.panel1.Location = new System.Drawing.Point(29, 67);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(478, 352);
@@ -74,16 +74,18 @@
             // chatTimer
             // 
             this.chatTimer.Enabled = true;
+            this.chatTimer.Interval = 50;
             this.chatTimer.Tick += new System.EventHandler(this.chatUpdate_Tick);
             // 
-            // chatBox
+            // chatBoxTrim
             // 
-            this.chatBox.Location = new System.Drawing.Point(3, 3);
-            this.chatBox.Name = "chatBox";
-            this.chatBox.Size = new System.Drawing.Size(472, 346);
-            this.chatBox.TabIndex = 1;
-            this.chatBox.Text = "";
-            this.chatBox.TextChanged += new System.EventHandler(this.chatBox_TextChanged);
+            this.chatBoxTrim.Location = new System.Drawing.Point(3, 3);
+            this.chatBoxTrim.Name = "chatBoxTrim";
+            this.chatBoxTrim.Size = new System.Drawing.Size(472, 346);
+            this.chatBoxTrim.TabIndex = 2;
+            this.chatBoxTrim.Text = "";
+            this.chatBoxTrim.WordWrap = false;
+            this.chatBoxTrim.TextChanged += new System.EventHandler(this.chatBoxTrim_TextChanged);
             // 
             // Form1
             // 
@@ -109,7 +111,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Timer chatTimer;
-        private System.Windows.Forms.RichTextBox chatBox;
+        private System.Windows.Forms.RichTextBox chatBoxTrim;
     }
 }
 
