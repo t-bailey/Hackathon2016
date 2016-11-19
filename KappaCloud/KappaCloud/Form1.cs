@@ -17,6 +17,11 @@ namespace KappaCloud
         TcpClient tcpClient;
         StreamReader reader;
         StreamWriter writer;
+        bool joined;
+
+        string userName = "temporarily_terrible";
+        string password = "oauth:q3yx09tynhaoqu744w9hm3kpree7cs";
+        string channelName = "#eleaguetv";
 
         public Form1()
         {
@@ -31,17 +36,19 @@ namespace KappaCloud
             reader = new StreamReader(tcpClient.GetStream());
             writer = new StreamWriter(tcpClient.GetStream());
 
-            string userName = "temporarily_terrible";
-            string password = "oauth:q3yx09tynhaoqu744w9hm3kpree7cs";
-            string channelName = "eleaguetv";
-
             
             writer.WriteLine("PASS " + password + Environment.NewLine
                 + "NICK " + userName + Environment.NewLine
-                + "USER " + userName + " 8 * : " + userName
-                + "JOIN" + channelName);
+                + "USER " + userName + " 8 * : " + userName);
             writer.Flush();
+            joined = false;
 
+        }
+        private void Join()
+        {
+            writer.WriteLine("JOIN " + channelName);
+            writer.Flush();
+            joined = true;
         }
 
         private void chatUpdate_Tick(object sender, EventArgs e)
@@ -51,11 +58,22 @@ namespace KappaCloud
                 Connect();
             }
 
-            if(tcpClient.Available > 0 || reader.Peek() >= 0)
+            if (tcpClient.Available > 0 || reader.Peek() >= 0)
             {
                 string message = reader.ReadLine();
-                TextLabel.Text += $"\r\n{message}";
+                chatBox.Text += $"\r\n{message}";
+            }
+            else
+            {
+                if (!joined)
+                {
+                    //Join();
+                    writer.WriteLine("JOIN " + channelName);
+                    writer.Flush();
+                    joined = true;
+                }
             }
         }
+
     }
 }
