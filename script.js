@@ -20,29 +20,20 @@ function addWord(word, count, max, position) {
 	var canvas = document.getElementById('cloudCanvas');
 	var ctx = canvas.getContext('2d');	
 
-	//Select the color of the text
-	ctx.fillStyle = getHexColor();
-
 	//Select the size of the word
 	var font_size = (count / max) * MAX_FONT_SIZE;
-	// ctx.font = "" + font_size +'pt Arial';
 	var image_size = Math.floor((count / max) * MAX_IMAGE_SIZE);
 
 	//Select the rotation of the word	
-	// ctx.save();
 	var rotation = Math.floor(Math.random() * 4) - 1;
 	if(rotation == 2) {
 		rotation = 0;
 	}
 
 	//Select the position of the word
-	var pos = getPosition(image_size,word,rotation);
-	// ctx.translate(pos[0], pos[1]);
-	
-	// ctx.rotate(rotation * Math.PI/2)	
+	var pos = getPosition(image_size,word,rotation);	
 	getImage(word, pos[0],pos[1], image_size);
-	// ctx.fillText(word, 0, 0);
-	// ctx.restore();
+
 }
 
 function getHexColor() {
@@ -54,7 +45,7 @@ function getHexColor() {
 
 var xStart, xEnd, yStart, yEnd, imgSizes;
 
-function getPosition(imgSize, word, rotationAngle)
+function getPosition(imgSize)
 {
 	var canvasHeight = 900;
 	var canvasWidth = 1024;
@@ -72,28 +63,11 @@ function getPosition(imgSize, word, rotationAngle)
 		x1 = Math.floor(Math.random() * (canvasWidth  - 199)) + 100;
 		y1 = Math.floor(Math.random() * (canvasHeight - 199)) + 100;
 
-		if (rotationAngle == 0)
-		{
-			x2 = x1 + imgSize;
-			y2 = y1 - imgSize;
-		}
-		else if (rotationAngle == Math.PI/2)
-		{
-			x2 = x1 + imgSize;
-			y2 = y1 + imgSize;
-		}
-		else // if (rotationAngle == -1 * Math.PI/2)
-		{
-			x2 = x1 - imgSize;
-			y2 = y1 - imgSize;
-		}
-
 		var xLittle, xBig, yLittle, yBig;
-
-		if  (x1 < x2){xLittle = x1;	xBig = x2;}
-		else         {xLittle = x2;	xBig = x1;}
-		if (y1 < y2) {yLittle = y1;	yBig = y2;}
-		else         {yLittle = y2; yBig = y1;}
+		xLittle = x1;
+		yLittle = y1;
+		xBig = x1 + imgSize;
+		yBig = y1+ imgSize;
 
 		xStart.push(xLittle);
 		xEnd.push(xBig);
@@ -103,71 +77,48 @@ function getPosition(imgSize, word, rotationAngle)
 
 		return [x1, y1];
 	}
-
-	do
-	{
-		var spotIsTaken = false;
-
-		x1 = Math.floor(Math.random() * (canvasWidth  - 199)) + 100;
-		y1 = Math.floor(Math.random() * (canvasHeight - 199)) + 100;
-
-		if (rotationAngle == 0)
+	else {
+		do
 		{
-			x2 = x1 + word.length * imgSize * 2;
-			y2 = y1 - imgSize;
-		}
-		else if (rotationAngle == Math.PI/2)
-		{
+			var spotIsTaken = false;
+
+			x1 = Math.floor(Math.random() * (canvasWidth  - 199)) + 100;
+			y1 = Math.floor(Math.random() * (canvasHeight - 199)) + 100;
 			x2 = x1 + imgSize;
-			y2 = y1 + word.length * imgSize;
+			y2 = y1 + imgSize;
+
+			var xLittle, xBig, yLittle, yBig;
+
+
+			if  (x1 < x2){xLittle = x1;	xBig = x2;}
+			else         {xLittle = x2;	xBig = x1;}
+			if (y1 < y2) {yLittle = y1;	yBig = y2;}
+			else         {yLittle = y2; yBig = y1;}
+
+			for (var i = 0; i < xStart.length; i++)
+			{
+				if ( x1 < xStart[i] + imgSizes[i] &&
+					x1 + imgSize > xStart[i] &&
+					y1 < yStart[i] + imgSizes[i] &&
+					y1 + imgSize > yStart[i])
+				{spotIsTaken = true; break;}
+			}
+			if(x1 + imgSize > canvasWidth || x1 < 0 || y1 + imgSize > canvasHeight || y1 < 0) {
+				spotIsTaken = true;
+			}
 		}
-		else // if (rotationAngle == -1 * Math.PI/2)
-		{
-			x2 = x1 - imgSize;
-			y2 = y1 - word.length * imgSize;
-		}
+		while (spotIsTaken)
 
-		var xLittle, xBig, yLittle, yBig;
+		var i = xStart.length;
 
-		if  (x1 < x2){xLittle = x1;	xBig = x2;}
-		else         {xLittle = x2;	xBig = x1;}
-		if (y1 < y2) {yLittle = y1;	yBig = y2;}
-		else         {yLittle = y2; yBig = y1;}
+		xStart[i] = (xLittle);
+		xEnd[i] = (xBig);
+		yStart[i] = (yLittle);
+		yEnd[i] = (yBig);
+		imgSizes[i] = imgSize;
 
-		for (var i = 0; i < xStart.length; i++)
-		{
-			if ( x1 < xStart[i] + imgSizes[i] &&
-				x1 + imgSize > xStart[i] &&
-				y1 < yStart[i] + imgSizes[i] &&
-				y1 + imgSize > yStart[i])
-			/*
-			 ((xLittle <= xEnd[i]      && xLittle >= xStart[i] && yLittle <= yEnd[i]   && yLittle >= yStart[i])
-			 || (xBig <= xEnd[i]      && xBig >= xStart[i]    && yLittle <= yEnd[i]   && yLittle >= yStart[i])
-			 || (xLittle <= xEnd[i]   && xLittle >= xStart[i] && yBig <= yEnd[i]      && yBig >= yStart[i])
-			 || (xBig <= xEnd[i]      && xBig >= xStart[i]    && yBig <= yEnd[i]      && yBig >= yStart[i])
-			 || (xLittle <= xStart[i] && xBig >= xEnd[i]      && yLittle >= yStart[i] && yLittle <= yEnd[i])
-			 || (xLittle <= xStart[i] && xBig >= xEnd[i]      && yBig >= yStart[i]    && yBig <= yEnd[i])
-			 || (xLittle >= xStart[i] && xLittle <= xEnd[i]   && yLittle <= yStart[i] && yBig >= yEnd[i])
-			 || (xBig >= xStart[i]    && xBig <= xEnd[i]      && yLittle <= yStart[i] && yBig >= yEnd[i])
-			 || (xBig >= xStart[i]    && xBig <= xEnd[i]      && yLittle <= yStart[i] && yBig >= yEnd[i])
-
-			 || (xBig > canvasWidth - 200) || (xLittle < 0)
-			 || (yBig > canvasHeight) || (yLittle < 0))*/
-
-			{spotIsTaken = true; break;}
-		}
+		return [x1, y1];
 	}
-	while (spotIsTaken)
-
-	var i = xStart.length;
-
-	xStart[i] = (xLittle);
-	xEnd[i] = (xBig);
-	yStart[i] = (yLittle);
-	yEnd[i] = (yBig);
-	imgSizes[i] = imgSize;
-
-	return [x1, y1];
 }
 
 function getImage(word, x, y, size) {
