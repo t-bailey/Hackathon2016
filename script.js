@@ -14,6 +14,7 @@ function drawCloud(names, counts) {
 
 function addWord(word, count, max, position) {
 	var MAX_FONT_SIZE = 72;
+	var MAX_IMAGE_SIZE = 300;
 
 	//Get the canvas and context
 	var canvas = document.getElementById('cloudCanvas');
@@ -24,7 +25,8 @@ function addWord(word, count, max, position) {
 
 	//Select the size of the word
 	var font_size = (count / max) * MAX_FONT_SIZE;
-	ctx.font = "" + font_size +'pt Arial';
+	// ctx.font = "" + font_size +'pt Arial';
+	var image_size = Math.floor((count / max) * MAX_IMAGE_SIZE);
 
 	//Select the rotation of the word	
 	// ctx.save();
@@ -38,7 +40,7 @@ function addWord(word, count, max, position) {
 	// ctx.translate(pos[0], pos[1]);
 	
 	// ctx.rotate(rotation * Math.PI/2)	
-	getImage(word, pos[0],pos[1]);
+	getImage(word, pos[0],pos[1], image_size);
 	// ctx.fillText(word, 0, 0);
 	// ctx.restore();
 }
@@ -132,7 +134,7 @@ function getPosition(fontSize, word, rotationAngle)
 	return [x1, y1];
 }
 
-function getImage(word, x, y) {
+function getImage(word, x, y, size) {
 	var data = JSON.parse(emotedata);
 	var emoteData = data.emotes[word]['image_id'];
 
@@ -140,9 +142,8 @@ function getImage(word, x, y) {
 	var ctx = canvas.getContext('2d');
   	var base_image = new Image();
  	base_image.src = 'https://static-cdn.jtvnw.net/emoticons/v1/' + emoteData + '/3.0';
- 	base_image.width = 50;
- 	base_image.height = 50;
+ 	
  	base_image.onload = function(){
-    	ctx.drawImage(base_image, x, y);
+    	ctx.drawImage(base_image, x, y, size, size);
   }
 }
