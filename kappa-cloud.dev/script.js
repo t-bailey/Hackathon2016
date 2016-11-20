@@ -1,16 +1,14 @@
-function createCloud(counts, names) {
-	//var counts = [5, 12, 2,10,1,5,15,7,11,3];
-	//var names = ['Kappa','PogChamp','VoteYea','VoteNay','KappaRoss','KappaPride','BrainSlug','BrokeBack','BudBlast','cmonBruh'];
-
-	drawCloud(names, counts);
-}
-
+var xStart, yStart, imgSizes;
 function drawCloud(names, counts) {
 
 	var canvas = document.getElementById('cloudCanvas');
 	var ctx = canvas.getContext('2d');	
 	ctx.fillStyle = 'white';
-	ctx.fillRect(0, 0, 1024, 900);
+	ctx.fillRect(0, 0, 1024, 600);
+	xStart = null;
+	yStart = null;
+	imgSizes = null;
+
 	
 
 	max = Math.max.apply(null,counts);
@@ -20,14 +18,14 @@ function drawCloud(names, counts) {
 }
 
 function addWord(word, count, max, position) {
-	var MAX_IMAGE_SIZE = 300;
+	var MAX_IMAGE_SIZE = 200;
 
 	//Get the canvas and context
 	var canvas = document.getElementById('cloudCanvas');
 	var ctx = canvas.getContext('2d');	
 
 	//Select the size of the image
-	var image_size = Math.floor((count / max) * MAX_IMAGE_SIZE);
+	var image_size = Math.ceil((count / max)*10) / 10 * MAX_IMAGE_SIZE ;
 
 	//Select the position of the word
 	var pos = getPosition(image_size);
@@ -35,11 +33,9 @@ function addWord(word, count, max, position) {
 
 }
 
-var xStart, yStart, imgSizes;
-
 function getPosition(imgSize)
 {
-	var canvasHeight = 900;
+	var canvasHeight = 600;
 	var canvasWidth = 1024;
 
 	var x1, y1; // x1 and y1 are the origin of the box; x2 and y2 are the opposite corner
