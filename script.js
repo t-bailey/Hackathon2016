@@ -1,9 +1,6 @@
 function createCloud() {
-	var counts = [5, 12, 2];
-	var names = ['a','b','c'];
-
-	canvas = document.getElementById('cloudCanvas');
-	ctx = canvas.getContext('2d');
+	var counts = [5, 12, 2,10,1,5,15,7,11,3];
+	var names = ['Kappa','PogChamp','VoteYea','VoteNay','KappaRoss','KappaPride','BrainSlug','BrokeBack','BudBlast','cmonBruh'];
 
 	drawCloud(names, counts);
 }
@@ -30,7 +27,7 @@ function addWord(word, count, max, position) {
 	ctx.font = "" + font_size +'pt Arial';
 
 	//Select the rotation of the word	
-	ctx.save();
+	// ctx.save();
 	var rotation = Math.floor(Math.random() * 4) - 1;
 	if(rotation == 2) {
 		rotation = 0;
@@ -38,12 +35,12 @@ function addWord(word, count, max, position) {
 
 	//Select the position of the word
 	var pos = getPosition(font_size,word,rotation);
-	ctx.translate(pos[0], pos[1]);
+	// ctx.translate(pos[0], pos[1]);
 	
-	ctx.rotate(rotation * Math.PI/2)	
-
-	ctx.fillText(word, 0, 0);
-	ctx.restore();
+	// ctx.rotate(rotation * Math.PI/2)	
+	getImage(word, pos[0],pos[1]);
+	// ctx.fillText(word, 0, 0);
+	// ctx.restore();
 }
 
 function getHexColor() {
@@ -106,7 +103,7 @@ function getPosition(fontSize, word, rotationAngle)
 		if (rotationAngle == 0)
 		{
 			x2 = x1 + word.length * fontSize * 2;
-			y2 = y1 - fontSize;
+			y2 = y1 + fontSize;
 		}
 		else if (rotationAngle == Math.PI/2)
 		{
@@ -133,4 +130,19 @@ function getPosition(fontSize, word, rotationAngle)
 	while (spotIsTaken)
 
 	return [x1, y1];
+}
+
+function getImage(word, x, y) {
+	var data = JSON.parse(emotedata);
+	var emoteData = data.emotes[word]['image_id'];
+
+	var canvas = document.getElementById('cloudCanvas');
+	var ctx = canvas.getContext('2d');
+  	var base_image = new Image();
+ 	base_image.src = 'https://static-cdn.jtvnw.net/emoticons/v1/' + emoteData + '/3.0';
+ 	base_image.width = 50;
+ 	base_image.height = 50;
+ 	base_image.onload = function(){
+    	ctx.drawImage(base_image, x, y);
+  }
 }
