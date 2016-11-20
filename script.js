@@ -1,17 +1,4 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
-function createCloud() 
-{
-	counts = [5, 4, 2];
-	names = ['a','b','c'];
-<<<<<<< HEAD
-	var MAX_FONT_SIZE = 72;
-}
-
-function createCloud() 
-{
+function createCloud() {
 	var counts = [5, 12, 2];
 	var names = ['a','b','c'];
 
@@ -21,59 +8,14 @@ function createCloud()
 	drawCloud(names, counts);
 }
 
-function drawCloud(names, counts) 
-{
+function drawCloud(names, counts) {
 	max = Math.max.apply(null,counts);
-	for(var i = 0; i < names.length; i++) 
-	{
-		ctx.fontColor
-		ctx.font = 'italic ' + (counts[i] / max) * MAX_FONT_SIZE +'pt Calibri';
-		ctx.fillText(names[i], 10, (i+1)*100);
-		console.log('here' + i);
-	}
-}
-
-function rotateElement(result)
-{
-	canvas = document.getElementById('cloudCanvas');
-	context = canvas.getContext('2d');
-	var rotated_word = result;
-	
-	context.save();
-	var size = context.measureText(rotated_word);
-	var change_x = 50;
-	var change_y = 50;
-	context.font = 'italic ' + 14 + ' pt Calibri';
-	context.translate(400, 300);
-	
-	var random = Math.floor(Math.random() * 2);
-	
-	if(random == 1)
-	{
-		context.rotate(-Math.PI/2);
-	}
-	else
-		context.rotate(Math.PI/2);
-	
-	context.fillText(rotated_word, 0, 0);
-	context.restore();
-	console.log('did the rotation ' + j);
-	
-
-	addWord(names[i],counts[i],max, i);
-	
-}	
-=======
-	var max = Math.max.apply(null, counts);
-	var wordArray = [];
-
-	for(var i = 0; i < counts.length; i++) {
-		addWord(names[i], counts[i], max, wordArray);
+	for(var i = 0; i < names.length; i++) {
+		addWord(names[i],counts[i],max, i);
 	}	
 }
->>>>>>> origin/master
 
-function addWord(word, count, max, wordArray) {
+function addWord(word, count, max, position) {
 	var MAX_FONT_SIZE = 72;
 
 	//Get the canvas and context
@@ -85,41 +27,23 @@ function addWord(word, count, max, wordArray) {
 
 	//Select the size of the word
 	var font_size = (count / max) * MAX_FONT_SIZE;
-	ctx.font = "" + font_size +'pt Ariel';
+	ctx.font = "" + font_size +'pt Arial';
 
 	//Select the rotation of the word	
 	ctx.save();
-	var rotation = Math.floor(Math.random() * 3) - 1;
+	var rotation = Math.floor(Math.random() * 4) - 1;
+	if(rotation == 2) {
+		rotation = 0;
+	}
 
 	//Select the position of the word
-	var pos = positionWord(word,font_size,rotation, wordArray);
+	var pos = getPosition(font_size,word,rotation);
 	ctx.translate(pos[0], pos[1]);
 	
 	ctx.rotate(rotation * Math.PI/2)	
 
 	ctx.fillText(word, 0, 0);
 	ctx.restore();
-}
-
-function putWordIntoArray(word, font_size, font_type, position)
-{
-	arrayOfWords = [];
-	canvas = document.getElementById('cloudCanvas');
-	context = canvas.getContext('2d');
-	
-	//Gets the width attribute of the word with a little bit of padding
-	int width = context.measureText(word).width + 5;
-	
-	//Keeps a little room so the text is padded
-	int height = font_size + 5;
-	
-	var wordObject = {txt: word, size: font_size, font: font_type, width: width, height: height, pos: position};
-	arrayOfWords.push(wordObject);
-}
-
-function checkForWord()
-{
-	//Needs to be redone
 }
 
 function getHexColor() {
@@ -129,32 +53,84 @@ function getHexColor() {
 	return '#' + ('0' + r.toString(16)).slice(-2) +  ('0' + g.toString(16)).slice(-2) +  ('0'+ b.toString(16)).slice(-2);
 }
 
-function positionWord(word,size,rot,wordArray) {
+var xStart, xEnd, yStart, yEnd;
 
-<<<<<<< HEAD
-function getXPosition(position) {
-	return 10;
-}
-=======
-	var canvas = document.getElementById('cloudCanvas');
-	var ctx = canvas.getContext('2d');
-	
-	var width = ctx.measureText(word).width + 5;
-	var height = size + 5;
+function getPosition(fontSize, word, rotationAngle)
+{
+	var canvasHeight = 600;
+	var canvasWidth = 800;
 
-	if(rot != 0) {
-		var temp = width;
-		width = height;
-		height = temp;
+	var x1, y1, x2, y2; // x1 and y1 are the origin of the box; x2 and y2 are the opposite corner
+
+	//if (xStart == null)
+	//{
+		// x1 = canvasWidth / 2;
+		// y1 = canvasHeight / 2;
+
+		// if (rotationAngle == 0)
+		// {
+		// 	x2 = x1 + word.length * fontSize;
+		// 	y2 = y1 - fontSize;
+		// }
+		// if (rotationAngle == Math.PI/2)
+		// {
+		// 	x2 = x1 + fontSize;
+		// 	y2 = y1 + word.length * fontSize;
+		// }
+		// else // if (rotationAngle == -1 * Math.PI/2)
+		// {
+		// 	x2 = x1 - fontSize;
+		// 	y2 = y1 - word.length * fontSize;
+		// }
+
+		xStart = [];
+		xEnd = [];
+		yStart = [];
+		yEnd = [];
+
+		// xStart.push(x1);
+		// xEnd.push(x2);
+		// yStart.push(y1);
+		// yEnd.push(y2);
+
+		// return [x1, y1];
+	//}
+
+	do
+	{
+		var spotIsTaken = false;
+
+		x1 = Math.floor(Math.random() * (canvasWidth  - 199)) + 100;
+		y1 = Math.floor(Math.random() * (canvasHeight - 199)) + 100;
+
+		if (rotationAngle == 0)
+		{
+			x2 = x1 + word.length * fontSize * 2;
+			y2 = y1 - fontSize;
+		}
+		else if (rotationAngle == Math.PI/2)
+		{
+			x2 = x1 + fontSize;
+			y2 = y1 + word.length * fontSize;
+		}
+		else // if (rotationAngle == -1 * Math.PI/2)
+		{
+			x2 = x1 - fontSize;
+			y2 = y1 - word.length * fontSize;
+		}
+
+		for (var i = 0; i < xStart.length; i++)
+		{
+			if ((x1 < xEnd[i] && x1 > xStart[i])
+				|| (x2 < xEnd[i] && x2 > xStart[i])
+				|| (y1 > yEnd[i] && y1 < yStart[i])
+				|| (y2 > yEnd[i] && y2 < yStart[i])
+				|| (xEnd > canvasWidth - 100) || (xEnd < 0)
+				|| (yEnd > canvasHeight) || (yEnd < 0))
+				spotIsTaken = true;
+		}
 	}
+	while (spotIsTaken)
 
-	var width = 600;
-	var height = 400;
-	x = Math.floor(Math.random() * width) - (width/2);
-	y = Math.floor(Math.random() * height) - (height/2);
-	x2 = x + width;
-	y2 = y + height;
-
-	return [x,y];
+	return [x1, y1];
 }
->>>>>>> origin/master
