@@ -9,6 +9,10 @@ $(document).ready(function(){
         ws.send('PASS ' + pass);
         ws.send('NICK ' + nick);
         ws.send('JOIN #' + channel);
+        setInterval(function() {
+            pong();
+            console.log("PONG sent");
+        }, 30000)
     };
 
     //show messages
@@ -20,6 +24,10 @@ $(document).ready(function(){
             console.log(message);
         }
     };
+
+    function pong(){
+        ws.send('PONG :tmi.twitch.tv');
+    }
 
     // ws.onmessage = function(data){
     //     if (data.lastIndexOf('PING', 0) === 0) {
