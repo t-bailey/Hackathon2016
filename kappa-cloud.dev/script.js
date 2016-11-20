@@ -9,11 +9,13 @@ function drawCloud(names, counts) {
 	yStart = null;
 	imgSizes = null;
 
-	
+	var ranking = document.getElementById('emoteBody');
+	ranking.innerHTML = '';
 
 	max = Math.max.apply(null,counts);
 	for(var i = 0; i < names.length; i++) {
 		addWord(names[i],counts[i],max, i);
+		ranking.innerHTML += "<tr><td>" + names[i] + '</td><td>' + counts[i] + '</td></tr>';
 	}	
 }
 
@@ -49,7 +51,7 @@ function getPosition(imgSize)
 		do {
 			x1 = Math.floor(Math.random() * canvasWidth);
 			y1 = Math.floor(Math.random() * canvasHeight);
-		} while (x1 < 0 || (x1 + imgSize) > canvasWidth || y1 < 0 || (y1 + imgSize) > canvasHeight);
+		} while (x1 < 10 || (x1 + imgSize) > (canvasWidth - 10) || y1 < 10 || (y1 + imgSize) > (canvasHeight - 10));
 
 		xStart.push(x1);
 		yStart.push(y1);
@@ -104,3 +106,4 @@ function getImage(word, x, y, size) {
     	ctx.drawImage(base_image, x, y, size, size);
   }
 }
+
