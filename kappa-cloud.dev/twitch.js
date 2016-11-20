@@ -2,7 +2,7 @@ $(document).ready(function(){
     var ws = new WebSocket('ws://irc-ws.chat.twitch.tv:80');
     var pass = 'oauth:q3yx09tynhaoqu744w9hm3kpree7cs';
     var nick = 'temporarily_terrible';
-    var channel = 'esl_csgo';
+    var channel = 'saltybet';
     var chatCommand = "PRIVMSG";
     ws.onopen = function open() {
         //ws.send('CAP REQ :twitch.tv/tags twitch.tv/commands twitch.tv/membership');
@@ -17,8 +17,8 @@ $(document).ready(function(){
         var msgIndex = message.indexOf(':', 1) + 1;
         if (msgIndex > 0 && message.includes(chatCommand)){
             message = message.substring(msgIndex);
+            console.log(message);
         }
-        console.log(message);
     };
 
     // ws.onmessage = function(data){
