@@ -13,66 +13,43 @@ function drawCloud(names, counts) {
 }
 
 function addWord(word, count, max, position) {
-	var MAX_FONT_SIZE = 72;
 	var MAX_IMAGE_SIZE = 300;
 
 	//Get the canvas and context
 	var canvas = document.getElementById('cloudCanvas');
 	var ctx = canvas.getContext('2d');	
 
-	//Select the size of the word
-	var font_size = (count / max) * MAX_FONT_SIZE;
+	//Select the size of the image
 	var image_size = Math.floor((count / max) * MAX_IMAGE_SIZE);
 
-	//Select the rotation of the word	
-	var rotation = Math.floor(Math.random() * 4) - 1;
-	if(rotation == 2) {
-		rotation = 0;
-	}
-
 	//Select the position of the word
-	var pos = getPosition(image_size,word,rotation);	
+	var pos = getPosition(image_size);
 	getImage(word, pos[0],pos[1], image_size);
 
 }
 
-function getHexColor() {
-	var r = Math.floor(Math.random() * 256);
-	var g = Math.floor(Math.random() * 256);
-	var b = Math.floor(Math.random() * 256);
-	return '#' + ('0' + r.toString(16)).slice(-2) +  ('0' + g.toString(16)).slice(-2) +  ('0'+ b.toString(16)).slice(-2);
-}
-
-var xStart, xEnd, yStart, yEnd, imgSizes;
+var xStart, yStart, imgSizes;
 
 function getPosition(imgSize)
 {
 	var canvasHeight = 900;
 	var canvasWidth = 1024;
 
-	var x1, y1, x2, y2; // x1 and y1 are the origin of the box; x2 and y2 are the opposite corner
+	var x1, y1; // x1 and y1 are the origin of the box; x2 and y2 are the opposite corner
 
 	if (xStart== null)
 	{
 		xStart = new Array();
-		xEnd = new Array();
 		yStart = new Array();
-		yEnd = new Array();
 		imgSizes = new Array();
 
-		x1 = Math.floor(Math.random() * (canvasWidth  - 199)) + 100;
-		y1 = Math.floor(Math.random() * (canvasHeight - 199)) + 100;
+		do {
+			x1 = Math.floor(Math.random() * canvasWidth);
+			y1 = Math.floor(Math.random() * canvasHeight);
+		} while (x1 < 0 || (x1 + imgSize) > canvasWidth || y1 < 0 || (y1 + imgSize) > canvasHeight);
 
-		var xLittle, xBig, yLittle, yBig;
-		xLittle = x1;
-		yLittle = y1;
-		xBig = x1 + imgSize;
-		yBig = y1+ imgSize;
-
-		xStart.push(xLittle);
-		xEnd.push(xBig);
-		yStart.push(yLittle);
-		yEnd.push(yBig);
+		xStart.push(x1);
+		yStart.push(y1);
 		imgSizes.push(imgSize);
 
 		return [x1, y1];
@@ -82,42 +59,32 @@ function getPosition(imgSize)
 		{
 			var spotIsTaken = false;
 
-			x1 = Math.floor(Math.random() * (canvasWidth  - 199)) + 100;
-			y1 = Math.floor(Math.random() * (canvasHeight - 199)) + 100;
-			x2 = x1 + imgSize;
-			y2 = y1 + imgSize;
-
-			var xLittle, xBig, yLittle, yBig;
-
-
-			if  (x1 < x2){xLittle = x1;	xBig = x2;}
-			else         {xLittle = x2;	xBig = x1;}
-			if (y1 < y2) {yLittle = y1;	yBig = y2;}
-			else         {yLittle = y2; yBig = y1;}
+			x1 = Math.floor(Math.random() * canvasWidth);
+			y1 = Math.floor(Math.random() * canvasHeight);
 
 			for (var i = 0; i < xStart.length; i++)
 			{
 				if ( x1 < xStart[i] + imgSizes[i] &&
 					x1 + imgSize > xStart[i] &&
 					y1 < yStart[i] + imgSizes[i] &&
-					y1 + imgSize > yStart[i])
+					y1 + imgSize > yStart[i]) {
+					spotIsTaken = true; break;
+				}
+
+				 if ((x1 + imgSize > canvasWidth) || (x1 < 0)
+				 || (y1 + imgSize > canvasHeight) || (y1 < 0))
 				{spotIsTaken = true; break;}
+
 			}
-			if(x1 + imgSize > canvasWidth || x1 < 0 || y1 + imgSize > canvasHeight || y1 < 0) {
-				spotIsTaken = true;
-			}
-		}
-		while (spotIsTaken)
+
+		}while (spotIsTaken)
 
 		var i = xStart.length;
 
-		xStart[i] = (xLittle);
-		xEnd[i] = (xBig);
-		yStart[i] = (yLittle);
-		yEnd[i] = (yBig);
+		xStart[i] = x1;
+		yStart[i] = y1;
 		imgSizes[i] = imgSize;
-
-		return [x1, y1];
+			return [x1, y1];
 	}
 }
 
