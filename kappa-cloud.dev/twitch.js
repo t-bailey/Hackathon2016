@@ -30,7 +30,7 @@ $(document).ready(function(){
         var msgIndex = message.indexOf(':', 1) + 1;
         if (msgIndex > 0 && message.includes(chatCommand)){
             message = message.substring(msgIndex);
-           // console.log(message);
+            //console.log(message);
             emoteCountArray = readEmoteFunction(message, emoteArray, emoteCountArray);
         }
     };

@@ -11,10 +11,14 @@ body {
 }
 
 #headerDiv {
-	font-size: 48px;
+	
 	width: 100%;
-	height: 10%;
+	height: 20%;
 	text-align: center;
+}
+
+#kappaDiv {
+	font-size: 48px;
 }
 
 #rankDiv {
