@@ -1,0 +1,17 @@
+body {
+	font-family: 'Ariel, Helvetica, sans-serif';
+	background-color: #6441a5;
+	text-align: center;
+	color: white;
+}
+
+#cloudCanvas {
+	border: 1px solid black;
+	background-color: white;
+}
+
+#headerDiv {
+	font-size: 48px;
+	width: 100%;
+	height: 10%;
+}
