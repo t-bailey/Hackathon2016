@@ -20,7 +20,7 @@ namespace KappaCloud
 
         string userName = "temporarily_terrible";
         string password = "oauth:q3yx09tynhaoqu744w9hm3kpree7cs";
-        string channelName = "#eleaguetv";
+        string channelName = "#esl_lol";
         string chatCommand = "PRIVMSG";
 
         public Form1()

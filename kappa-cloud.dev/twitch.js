@@ -7,7 +7,7 @@ $(document).ready(function(){
             'function': 'connect',
             'server': 'irc.chat.twitch.tv',
             'port': '6667',
-            'channel': '#eleaguetv',
+            'channel': '#esl_lol',
             'name': 'temporarily_terrible',
             'pass': 'oauth:q3yx09tynhaoqu744w9hm3kpree7cs'
 
@@ -15,7 +15,8 @@ $(document).ready(function(){
         success: function(result){
             console.log(result);
             console.log($.parseJSON(result));
+            //location.replace('...');
         }
     });
-    
+
 });
