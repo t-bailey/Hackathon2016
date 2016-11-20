@@ -1,11 +1,18 @@
-function createCloud() {
-	var counts = [5, 12, 2,10,1,5,15,7,11,3];
-	var names = ['Kappa','PogChamp','VoteYea','VoteNay','KappaRoss','KappaPride','BrainSlug','BrokeBack','BudBlast','cmonBruh'];
+function createCloud(counts, names) {
+	//var counts = [5, 12, 2,10,1,5,15,7,11,3];
+	//var names = ['Kappa','PogChamp','VoteYea','VoteNay','KappaRoss','KappaPride','BrainSlug','BrokeBack','BudBlast','cmonBruh'];
 
 	drawCloud(names, counts);
 }
 
 function drawCloud(names, counts) {
+
+	var canvas = document.getElementById('cloudCanvas');
+	var ctx = canvas.getContext('2d');	
+	ctx.fillStyle = 'white';
+	ctx.fillRect(0, 0, 1024, 900);
+	
+
 	max = Math.max.apply(null,counts);
 	for(var i = 0; i < names.length; i++) {
 		addWord(names[i],counts[i],max, i);
